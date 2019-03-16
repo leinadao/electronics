@@ -26,14 +26,11 @@ class ShiftRegister ():
 		self.__data_pin_id = data_pin_id
 		self.__clock_pin_id = clock_pin_id
 		self.__latch_pin_id = latch_pin_id
-		self.__data = None
-		self.__clock = None
-		self.__latch = None
 		GPIO.setup (self.__data_pin_id, GPIO.OUT)
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
 		## Ensure it's all initially turned off:
-		self.pins_off ()
+		self.pins_off () ## Also initialises statuses as off.
 
 	@property
 	def number_outputs (self):
