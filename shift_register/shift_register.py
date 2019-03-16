@@ -22,7 +22,7 @@ class ShiftRegister ():
 			a shift register on three
 			given GPIO pins.
 		'''
-		self.__number_outputs = 16
+		self.__number_outputs = number_outputs
 		self.__data_pin_id = data_pin_id
 		self.__clock_pin_id = clock_pin_id
 		self.__latch_pin_id = latch_pin_id
