@@ -241,13 +241,17 @@ class ShiftRegister ():
 		if latch:
 			self.latch_pulse ()
 
-	def set (self, **kwargs):
+	def from_pin_list (self, pin_list, latch = True):
 		'''
-			Set all values based on the given
-			kwargs, defaulting unspecified pins off.
+			Turn on only the output numbers in
+			the given list and all others off.
+			Pin numbering starts at 0.
+			Latch the result by default.
 		'''
-		for i in range (self.__number_outputs):
-			if not str (i) in kwargs.keys ():
-				kwargs[str (i)] = self.OFF
-		values = [a[1] for a in sorted (kwargs.items (), key=lambda x: x[0])]
-		self.from_list (values)
+		data = [
+			self.ON if pin in pin_list else self.OFF for pin in range (self.__number_outputs)
+		]
+		self.from_list (
+			data,
+			latch = latch,
+		)
