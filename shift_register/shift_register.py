@@ -12,7 +12,7 @@ class ShiftRegister ():
 
 	def __init__ (
 		self,
-		outputs,
+		number_outputs,
 		data_pin_id,
 		clock_pin_id,
 		latch_pin_id,
@@ -22,7 +22,7 @@ class ShiftRegister ():
 			a shift register on three
 			given GPIO pins.
 		'''
-		self.__outputs = 16
+		self.__number_outputs = 16
 		self.__data_pin_id = data_pin_id
 		self.__clock_pin_id = clock_pin_id
 		self.__latch_pin_id = latch_pin_id
@@ -183,7 +183,7 @@ class ShiftRegister ():
 			Set all values to the given
 			on or off value.
 		'''
-		for i in range (self.__outputs):
+		for i in range (self.__number_outputs):
 			self.set_next (on_or_off)
 
 	def set_all_and_latch (self, on_or_off):
@@ -191,7 +191,7 @@ class ShiftRegister ():
 			Set all values to the given
 			on or off value and latch it.
 		'''
-		for i in range (self.__outputs):
+		for i in range (self.__number_outputs):
 			self.set_next_and_latch (on_or_off)
 
 	def clear (self):
@@ -205,7 +205,7 @@ class ShiftRegister ():
 		'''
 			Set all outputs to the given values.
 		'''
-		assert (len (values) == self.__outputs)
+		assert (len (values) == self.__number_outputs)
 		values.reverse () ## Need to write them backwards!
 		for v in values:
 			self.set_next (v)
@@ -216,7 +216,7 @@ class ShiftRegister ():
 			Set all values based on the given
 			kwargs, defaulting unspecified pins off.
 		'''
-		for i in range (self.__outputs):
+		for i in range (self.__number_outputs):
 			if not str (i) in kwargs.keys ():
 				kwargs[str (i)] = self.OFF
 		values = [a[1] for a in sorted (kwargs.items (), key=lambda x: x[0])]
