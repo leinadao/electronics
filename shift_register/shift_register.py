@@ -177,25 +177,23 @@ class ShiftRegister ():
 		self.clock_pulse ()
 		self.latch_pulse ()
 
-	def set_next (self, on_or_off):
+	def next (self, on_or_off, latch = False):
 		'''
 			Set the next value to the given
-			on or off value.
+			on or off value and latch if requested.
 		'''
+		## Ensure data is ready:
 		if on_or_off:
 			self.data_on ()
 		else:
 			self.data_off ()
+		## Ensure clock ready:
 		self.clock_off ()
+		## Commit the data:
 		self.clock_pulse ()
-
-	def set_next_and_latch (self, on_or_off):
-		'''
-			Set the next value to the given
-			on or off value and latch it.
-		'''
-		self.set_next (on_or_off)
-		self.latch_pulse ()
+		## Latch if requested:
+		if latch:
+			self.latch_pulse ()
 
 	def set_all (self, on_or_off):
 		'''
@@ -203,7 +201,7 @@ class ShiftRegister ():
 			on or off value.
 		'''
 		for i in range (self.__number_outputs):
-			self.set_next (on_or_off)
+			self.next (on_or_off)
 
 	def set_all_and_latch (self, on_or_off):
 		'''
@@ -211,7 +209,10 @@ class ShiftRegister ():
 			on or off value and latch it.
 		'''
 		for i in range (self.__number_outputs):
-			self.set_next_and_latch (on_or_off)
+			self.next (
+				on_or_off,
+				latch = True,
+			)
 
 	def clear (self):
 		'''
@@ -227,7 +228,7 @@ class ShiftRegister ():
 		assert (len (values) == self.__number_outputs)
 		values.reverse () ## Need to write them backwards!
 		for v in values:
-			self.set_next (v)
+			self.next (v)
 		self.latch_pulse ()
 
 	def set (self, **kwargs):
