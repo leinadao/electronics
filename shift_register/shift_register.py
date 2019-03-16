@@ -40,6 +40,30 @@ class ShiftRegister ():
 		'''
 		return self.__number_outputs
 
+	@property
+	def data (self):
+		'''
+			Return a boolean for whether
+			the data pin is currently on.
+		'''
+		return self.__data == self.ON
+
+	@property
+	def clock (self):
+		'''
+			Return a boolean for whether
+			the clock pin is currently on.
+		'''
+		return self.__clock == self.ON
+
+	@property
+	def latch (self):
+		'''
+			Return a boolean for whether
+			the latch pin is currently on.
+		'''
+		return self.__latch == self.ON
+
 	def data_off (self):
 		'''
 			Turn the data pin off.
@@ -97,30 +121,6 @@ class ShiftRegister ():
 		self.data_on ()
 		self.clock_on ()
 		self.latch_on ()
-
-	@property
-	def data (self):
-		'''
-			Return a boolean for whether
-			the data pin is currently on.
-		'''
-		return self.__data == self.ON
-
-	@property
-	def clock (self):
-		'''
-			Return a boolean for whether
-			the clock pin is currently on.
-		'''
-		return self.__clock == self.ON
-
-	@property
-	def latch (self):
-		'''
-			Return a boolean for whether
-			the latch pin is currently on.
-		'''
-		return self.__latch == self.ON
 
 	def pulse_data (self):
 		'''
