@@ -221,11 +221,3 @@ class ShiftRegister ():
 				kwargs[str (i)] = self.OFF
 		values = [a[1] for a in sorted (kwargs.items (), key=lambda x: x[0])]
 		self.set_output_list (values)
-
-## Create a test shift register on pin 4 and 18:
-t = TestShiftRegister (
-	outputs = 16,
-	data_pin_id = 4,
-	clock_pin_id = 17,
-	latch_pin_id = 18,
-)
