@@ -134,7 +134,7 @@ class ShiftRegister ():
 		self.clock_on ()
 		self.latch_on ()
 
-	def pulse_data (self):
+	def data_pulse (self):
 		'''
 			Pule the data pin.
 		'''
@@ -145,7 +145,7 @@ class ShiftRegister ():
 			self.data_on ()
 			self.data_off ()
 
-	def pulse_clock (self):
+	def clock_pulse (self):
 		'''
 			Pule the clock pin.
 		'''
@@ -156,7 +156,7 @@ class ShiftRegister ():
 			self.clock_on ()
 			self.clock_off ()
 
-	def pulse_latch (self):
+	def latch_pulse (self):
 		'''
 			Pule the latch pin.
 		'''
@@ -172,8 +172,8 @@ class ShiftRegister ():
 			Shift the current data along,
 			adding the current data line.
 		'''
-		self.pulse_clock ()
-		self.pulse_latch ()
+		self.clock_pulse ()
+		self.latch_pulse ()
 
 	def set_next (self, on_or_off):
 		'''
@@ -185,7 +185,7 @@ class ShiftRegister ():
 		else:
 			self.data_off ()
 		self.clock_off ()
-		self.pulse_clock ()
+		self.clock_pulse ()
 
 	def set_next_and_latch (self, on_or_off):
 		'''
@@ -193,7 +193,7 @@ class ShiftRegister ():
 			on or off value and latch it.
 		'''
 		self.set_next (on_or_off)
-		self.pulse_latch ()
+		self.latch_pulse ()
 
 	def set_all (self, on_or_off):
 		'''
@@ -216,7 +216,7 @@ class ShiftRegister ():
 			Turn off all outputs.
 		'''
 		self.set_all (self.OFF)
-		self.pulse_latch ()
+		self.latch_pulse ()
 
 	def set_output_list (self, values):
 		'''
@@ -226,7 +226,7 @@ class ShiftRegister ():
 		values.reverse () ## Need to write them backwards!
 		for v in values:
 			self.set_next (v)
-		self.pulse_latch ()
+		self.latch_pulse ()
 
 	def set (self, **kwargs):
 		'''
