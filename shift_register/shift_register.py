@@ -219,8 +219,10 @@ class ShiftRegister ():
 		'''
 			Turn off all outputs.
 		'''
-		self.all (self.OFF)
-		self.latch_pulse ()
+		self.all (
+			self.OFF,
+			latch = True,
+		)
 
 	def set_output_list (self, values):
 		'''
