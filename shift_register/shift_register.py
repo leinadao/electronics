@@ -30,7 +30,7 @@ class ShiftRegister ():
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
 		## Ensure it's all initially turned off:
-		self.pins_off () ## Also initialises statuses as off.
+		self.all_pins_off () ## Also initialises statuses as off.
 
 	@property
 	def number_outputs (self):
@@ -91,7 +91,7 @@ class ShiftRegister ():
 			GPIO.output (self.__latch_pin_id, GPIO.LOW)
 			self.__latch = self.OFF
 
-	def pins_off (self):
+	def all_pins_off (self):
 		'''
 			Turn all pins off.
 		'''
@@ -126,7 +126,7 @@ class ShiftRegister ():
 			GPIO.output (self.__latch_pin_id, GPIO.HIGH)
 			self.__latch = self.ON
 
-	def pins_on (self):
+	def all_pins_on (self):
 		'''
 			Turn all pins on.
 		'''
