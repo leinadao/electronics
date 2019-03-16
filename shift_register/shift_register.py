@@ -35,6 +35,14 @@ class ShiftRegister ():
 		## Ensure it's all initially turned off:
 		self.pins_off ()
 
+	@property
+	def number_outputs (self):
+		'''
+			Return the number of outputs
+			this instance is controlling.
+		'''
+		return self.__number_outputs
+
 	def data_off (self):
 		'''
 			Turn the data pin off.
