@@ -16,6 +16,7 @@ class ShiftRegister ():
 		data_pin_id,
 		clock_pin_id,
 		latch_pin_id,
+		clear = False,
 	):
 		'''
 			A manager class for running
@@ -31,6 +32,10 @@ class ShiftRegister ():
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
 		## Ensure it's all initially turned off:
 		self.all_pins_off () ## Also initialises statuses as off.
+		## Make sure the output is
+		## clear if requested:
+		if clear:
+			self.clear ()
 
 	@property
 	def number_outputs (self):
