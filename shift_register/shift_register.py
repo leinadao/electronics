@@ -224,7 +224,7 @@ class ShiftRegister ():
 			latch = True,
 		)
 
-	def set_output_list (self, values):
+	def from_list (self, values):
 		'''
 			Set all outputs to the given values.
 		'''
@@ -243,4 +243,4 @@ class ShiftRegister ():
 			if not str (i) in kwargs.keys ():
 				kwargs[str (i)] = self.OFF
 		values = [a[1] for a in sorted (kwargs.items (), key=lambda x: x[0])]
-		self.set_output_list (values)
+		self.from_list (values)
