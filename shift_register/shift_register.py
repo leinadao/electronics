@@ -1,3 +1,4 @@
+from collections import deque
 from RPi import GPIO
 
 ## Set the pin mode:
@@ -27,6 +28,7 @@ class ShiftRegister ():
 		self.__data_pin_id = data_pin_id
 		self.__clock_pin_id = clock_pin_id
 		self.__latch_pin_id = latch_pin_id
+		self.__output = deque (maxlen = self.__number_outputs)
 		GPIO.setup (self.__data_pin_id, GPIO.OUT)
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
@@ -180,6 +182,7 @@ class ShiftRegister ():
 		## Make sure data isn't added:
 		self.data_off ()
 		self.clock_pulse ()
+		self.__output.append (self.OFF)
 		self.latch_pulse ()
 
 	def next (self, on_or_off, latch = False):
@@ -196,6 +199,7 @@ class ShiftRegister ():
 		self.clock_off ()
 		## Commit the data:
 		self.clock_pulse ()
+		self.__output.append (on_or_off)
 		## Latch if requested:
 		if latch:
 			self.latch_pulse ()
@@ -216,6 +220,7 @@ class ShiftRegister ():
 		## Commit the data:
 		for i in range (self.__number_outputs):
 			self.clock_pulse ()
+			self.__output.append (on_or_off)
 		## Latch if requested:
 		if latch:
 			self.latch_pulse ()
