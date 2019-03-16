@@ -124,7 +124,7 @@ class ShiftRegister ():
 
 	def pulse_data (self):
 		'''
-			Pule the data line.
+			Pule the data pin.
 		'''
 		if self.data:
 			self.data_off ()
@@ -135,7 +135,7 @@ class ShiftRegister ():
 
 	def pulse_clock (self):
 		'''
-			Pule the clock line.
+			Pule the clock pin.
 		'''
 		if self.clock:
 			self.clock_off ()
@@ -146,7 +146,7 @@ class ShiftRegister ():
 
 	def pulse_latch (self):
 		'''
-			Pule the latch line.
+			Pule the latch pin.
 		'''
 		if self.latch:
 			self.latch_off ()
