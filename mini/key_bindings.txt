@@ -1,0 +1,33 @@
+Mini Key Bindings:
+
+arrows - self-explanatory
+q (113) - sound on/off (quiet)
+w (119) - forward
+e (101)
+r (114) - right indicator
+t (116)
+y (121)
+u (117)
+i (105)
+o (111)
+p (112) - parking lights
+a (97) - left
+s (115) - backward
+d (100) - right
+f (102)
+g (103)
+h (104) - horn
+j (106)
+k (107)
+l (108) - left indicator
+z (122)
+x (120)
+c (99)
+v (118)
+b (98)
+
+n (110) - dipped beam
+m (109) - main beam
+
+# (35) - hazard warning lights
+? (63) - toggle dev mode on / off (dev mode).
