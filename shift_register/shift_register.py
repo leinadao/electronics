@@ -170,8 +170,10 @@ class ShiftRegister ():
 	def shift (self):
 		'''
 			Shift the current data along,
-			adding the current data line.
+			ensuring no data is added.
 		'''
+		## Make sure data isn't added:
+		self.data_off ()
 		self.clock_pulse ()
 		self.latch_pulse ()
 
