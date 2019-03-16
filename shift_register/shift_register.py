@@ -224,14 +224,22 @@ class ShiftRegister ():
 			latch = True,
 		)
 
-	def from_list (self, values):
+	def from_list (self, to_set, latch = True):
 		'''
-			Set all outputs to the given values.
+			Set outputs 1-x to from the given list.
+			Data written in reverse so to_set[0] is
+			set on pin 0 etc. Latch the result by default.
 		'''
-		values.reverse () ## Need to write them backwards!
-		for v in values:
+		## Reverse the list so order is
+		## maintained once written:
+		to_set.reverse ()
+		## Iterate through the list:
+		for v in to_set:
 			self.next (v)
-		self.latch_pulse ()
+		## Only latch at the end for
+		## efficiency, if requested:
+		if latch:
+			self.latch_pulse ()
 
 	def set (self, **kwargs):
 		'''
