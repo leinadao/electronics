@@ -228,7 +228,6 @@ class ShiftRegister ():
 		'''
 			Set all outputs to the given values.
 		'''
-		assert (len (values) == self.__number_outputs)
 		values.reverse () ## Need to write them backwards!
 		for v in values:
 			self.next (v)
