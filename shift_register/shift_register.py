@@ -195,30 +195,31 @@ class ShiftRegister ():
 		if latch:
 			self.latch_pulse ()
 
-	def set_all (self, on_or_off):
+	def all (self, on_or_off, latch = False):
 		'''
-			Set all values to the given
-			on or off value.
+			Set all outputs to the given on
+			or off value and latch if requested.
+			Doesn't use next for efficiency.
 		'''
+		## Ensure data is ready:
+		if on_or_off:
+			self.data_on ()
+		else:
+			self.data_off ()
+		## Ensure clock ready:
+		self.clock_off ()
+		## Commit the data:
 		for i in range (self.__number_outputs):
-			self.next (on_or_off)
-
-	def set_all_and_latch (self, on_or_off):
-		'''
-			Set all values to the given
-			on or off value and latch it.
-		'''
-		for i in range (self.__number_outputs):
-			self.next (
-				on_or_off,
-				latch = True,
-			)
+			self.clock_pulse ()
+		## Latch if requested:
+		if latch:
+			self.latch_pulse ()
 
 	def clear (self):
 		'''
 			Turn off all outputs.
 		'''
-		self.set_all (self.OFF)
+		self.all (self.OFF)
 		self.latch_pulse ()
 
 	def set_output_list (self, values):
