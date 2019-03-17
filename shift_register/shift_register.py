@@ -240,6 +240,13 @@ class ShiftRegister ():
 			Data written in reverse so to_set[0] is
 			set on pin 0 etc. Latch the result by default.
 		'''
+		## Check if any of the current
+		## output is of any use:
+		output = list (self.__output)
+		len_to_set = len (to_set)
+		for i in range (len_to_set): ## to_set used in case shorter.
+			if output[:len_to_set - i] == to_set[i:]
+				to_set = to_set[:i]
 		## Reverse the list so order is
 		## maintained once written:
 		to_set.reverse ()
