@@ -29,6 +29,7 @@ class ShiftRegister ():
 		self.__data_pin_id = data_pin_id
 		self.__clock_pin_id = clock_pin_id
 		self.__latch_pin_id = latch_pin_id
+		self.__data = self.__clock = self.__latch = None
 		self.__latched = False
 		self.__output = deque (maxlen = self.__number_outputs)
 		GPIO.setup (self.__data_pin_id, GPIO.OUT)
