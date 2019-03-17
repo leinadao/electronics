@@ -82,6 +82,13 @@ class ShiftRegister ():
 		'''
 		return self.__latched
 
+	@property
+	def output (self):
+		'''
+			Return the current output.
+		'''
+		return list (self.__output)
+
 	def data_off (self):
 		'''
 			Turn the data pin off
