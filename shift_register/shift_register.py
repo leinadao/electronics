@@ -234,19 +234,26 @@ class ShiftRegister ():
 			latch = True,
 		)
 
-	def from_list (self, to_set, latch = True):
+	def from_list (
+		self,
+		to_set,
+		latch = True,
+		reuse_previous = True,
+	):
 		'''
 			Set outputs 1-x to from the given list.
 			Data written in reverse so to_set[0] is
 			set on pin 0 etc. Latch the result by default.
+			Try reusing the previous output by default.
 		'''
-		## Check if any of the current
-		## output is of any use:
-		output = list (self.__output)
-		len_to_set = len (to_set)
-		for i in range (len_to_set): ## to_set used in case shorter.
-			if output[:len_to_set - i] == to_set[i:]
-				to_set = to_set[:i]
+		if reuse_previous:
+			## Check if any of the current
+			## output is of any use:
+			output = list (self.__output)
+			len_to_set = len (to_set)
+			for i in range (len_to_set): ## to_set used in case shorter.
+				if output[:len_to_set - i] == to_set[i:]
+					to_set = to_set[:i]
 		## Reverse the list so order is
 		## maintained once written:
 		to_set.reverse ()
@@ -258,12 +265,18 @@ class ShiftRegister ():
 		if latch:
 			self.latch_pulse ()
 
-	def from_pin_list (self, pin_list, latch = True):
+	def from_pin_list (
+		self,
+		pin_list,
+		latch = True,
+		reuse_previous = True,
+	):
 		'''
 			Turn on only the output numbers in
 			the given list and all others off.
 			Pin numbering starts at 0.
 			Latch the result by default.
+			Try reusing the previous output by default.
 		'''
 		data = [
 			self.ON if pin in pin_list else self.OFF for pin in range (self.__number_outputs)
@@ -271,4 +284,5 @@ class ShiftRegister ():
 		self.from_list (
 			data,
 			latch = latch,
+			reuse_previous = reuse_previous,
 		)
