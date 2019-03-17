@@ -6,7 +6,8 @@ GPIO.setmode (GPIO.BCM)
 
 class ShiftRegister ():
 	'''
-		A class for handling a test shift register.
+		A class for handling a shift register
+		using only three inputs.
 	'''
 	ON = 1
 	OFF = 0
