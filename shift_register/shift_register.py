@@ -267,7 +267,7 @@ class ShiftRegister ():
 			output = list (self.__output)
 			len_to_set = len (to_set)
 			for i in range (len_to_set): ## to_set used in case shorter.
-				if output[:len_to_set - i] == to_set[i:]
+				if output[:len_to_set - i] == to_set[i:]:
 					to_set = to_set[:i]
 		## Reverse the list so order is
 		## maintained once written:
