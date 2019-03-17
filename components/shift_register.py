@@ -17,7 +17,7 @@ class ShiftRegister ():
 		number_outputs,
 		data_pin_id,
 		clock_pin_id,
-		latch_pin_id,
+		latch_pin_id, ## Add handling for the other two possible lines (clear and blank) (make optional). ## Needs to hold them the correct way when not calling etc. Methods only registered if needed -> Subclass? Use clear line for clear but also consider if more efficient for new write. Handle either active low and/or high for both? Use proper pin names somewhere?
 	):
 		'''
 			A manager class for running
