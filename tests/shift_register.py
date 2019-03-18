@@ -27,15 +27,18 @@ def flash_random (shift_register, iterations, pause_seconds):
 		)
 		time_sleep (pause_seconds)
 
-def test_average_time (shift_register, iterations):
+def test_average_time (shift_register, iterations, clear = False):
 	'''
 		Test the speed of the furthest possible write,
 		averaged over the given number of iterations.
+		Clear before each write if requested.
 	'''
-	def test (shift_register):
+	def test (shift_register, clear = False):
 		'''
 			Time one write.
 		'''
+		if clear:
+			shift_register.clear ()
 		a = time_time ()
 		shift_register.from_list (
 			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
