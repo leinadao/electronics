@@ -26,3 +26,20 @@ def flash_random (shift_register, iterations, pause_seconds):
 			[random_getrandbits (1) for a in range (shift_register.number_outputs)],
 		)
 		time_sleep (pause_seconds)
+
+def test_average_time (shift_register, iterations):
+	'''
+		Test the speed of the furthest possible write,
+		averaged over the given number of iterations.
+	'''
+	def test (shift_register):
+		'''
+			Time one write.
+		'''
+		a = time_time ()
+		shift_register.from_list (
+			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+		)
+		return time_time () - a
+	test_results = [test () for i in range (iterations)]
+	return sum (test_results) / len (test_results)
