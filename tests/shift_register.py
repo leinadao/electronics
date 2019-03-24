@@ -23,7 +23,7 @@ def flash_random (shift_register, iterations, pause_seconds):
 	'''
 	for i in range (iterations):
 		shift_register.from_list (
-			[random_getrandbits (1) for a in range (shift_register.number_outputs)],
+			[random_getrandbits (1) for a in range (len (shift_register))],
 		)
 		time_sleep (pause_seconds)
 

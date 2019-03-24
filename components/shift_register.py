@@ -29,7 +29,7 @@ class ShiftRegister ():
 		self.__clock_pin_id = clock_pin_id
 		self.__latch_pin_id = latch_pin_id
 		self.__latched = False
-		self.__output = deque (maxlen = self.__number_outputs)
+		self.__output = deque (maxlen = len (self))
 		GPIO.setup (self.__data_pin_id, GPIO.OUT)
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
@@ -39,8 +39,7 @@ class ShiftRegister ():
 		## Ensure the output is clear:
 		self.clear ()
 
-	@property
-	def number_outputs (self):
+	def __len__ (self):
 		'''
 			Return the number of outputs
 			this instance is controlling.
@@ -238,7 +237,7 @@ class ShiftRegister ():
 		## Ensure clock ready:
 		self.clock_off ()
 		## Commit the data:
-		for i in range (self.__number_outputs):
+		for i in range (len (self)):
 			self.clock_pulse ()
 			self.__output.appendleft (on_or_off)
 		## Latch if requested:
@@ -299,7 +298,7 @@ class ShiftRegister ():
 			Try reusing the previous output by default.
 		'''
 		data = [
-			self.ON if pin in pin_list else self.OFF for pin in range (self.__number_outputs)
+			self.ON if pin in pin_list else self.OFF for pin in range (len (self))
 		]
 		self.from_list (
 			data,
