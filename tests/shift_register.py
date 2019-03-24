@@ -41,7 +41,7 @@ def test_average_time (shift_register, iterations, clear = False):
 			shift_register.clear ()
 		a = time_time ()
 		shift_register.from_list (
-			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+			[0 for i in range (len (shift_register) - 1)] + [1],
 		)
 		return time_time () - a
 	test_results = [test () for i in range (iterations)]
