@@ -35,7 +35,7 @@ class ShiftRegister ():
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
 		## Ensure control is all initially off:
-		self.__data_value = self.__clock_value = self.__latch_value = True
+		self.__data_value = self.__clock_value = self.__latch_value = self.ON
 		self.data_off ()
 		self.clock_off ()
 		self.latch_off ()
