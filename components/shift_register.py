@@ -28,9 +28,9 @@ class ShiftRegister ():
 		self.__data_pin_id = data_pin_id
 		self.__clock_pin_id = clock_pin_id
 		self.__latch_pin_id = latch_pin_id
-		self.__output = deque (maxlen = len (self))
 		self.__number_unlatched = 0
 		self.__written = deque (maxlen = len (self))
+		self.__output = ()
 		GPIO.setup (self.__data_pin_id, GPIO.OUT)
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
@@ -92,7 +92,7 @@ class ShiftRegister ():
 		'''
 			Return the currently output data.
 		'''
-		return list (self.__output)
+		return self.__output
 
 	@property
 	def written (self):
@@ -166,6 +166,7 @@ class ShiftRegister ():
 			GPIO.output (self.__latch_pin_id, GPIO.HIGH)
 			self.__latch = self.ON
 			## All data is latched again:
+			self.__output = tuple (self.__written)
 			self.__number_unlatched = 0
 
 	def all_pins_on (self):
