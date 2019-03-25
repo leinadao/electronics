@@ -314,11 +314,11 @@ class ShiftRegister ():
 			Latch the result by default.
 			Try reusing the current data by default.
 		'''
-		data = [
+		to_write = [
 			self.ON if pin in pin_list else self.OFF for pin in range (len (self))
 		]
 		self.from_list (
-			data,
+			to_write,
 			latch = latch,
 			reuse_previous = reuse_previous,
 		)
