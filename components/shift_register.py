@@ -35,7 +35,7 @@ class ShiftRegister ():
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
 		## Ensure control is all initially off:
-		self.__data = self.__clock = self.__latch = True
+		self.__data_value = self.__clock_value = self.__latch_value = True
 		self.all_pins_off ()
 		## Ensure the output is clear:
 		self.clear ()
@@ -48,28 +48,28 @@ class ShiftRegister ():
 		return self.__number_outputs
 
 	@property
-	def data (self):
+	def data_pin_on (self):
 		'''
 			Return a boolean for whether
 			the data pin is currently on.
 		'''
-		return self.__data == self.ON
+		return self.__data_value == self.ON
 
 	@property
-	def clock (self):
+	def clock_pin_on (self):
 		'''
 			Return a boolean for whether
 			the clock pin is currently on.
 		'''
-		return self.__clock == self.ON
+		return self.__clock_value == self.ON
 
 	@property
-	def latch (self):
+	def latch_pin_on (self):
 		'''
 			Return a boolean for whether
 			the latch pin is currently on.
 		'''
-		return self.__latch == self.ON
+		return self.__latch_value == self.ON
 
 	@property
 	def latched (self):
@@ -106,27 +106,27 @@ class ShiftRegister ():
 			Turn the data pin off
 			if it's not already.
 		'''
-		if self.data:
+		if self.data_pin_on:
 			GPIO.output (self.__data_pin_id, GPIO.LOW)
-			self.__data = self.OFF
+			self.__data_value = self.OFF
 
 	def clock_off (self):
 		'''
 			Turn the clock pin off
 			if it's not already.
 		'''
-		if self.clock:
+		if self.clock_pin_on:
 			GPIO.output (self.__clock_pin_id, GPIO.LOW)
-			self.__clock = self.OFF
+			self.__clock_value = self.OFF
 
 	def latch_off (self):
 		'''
 			Turn the latch pin off
 			if it's not already.
 		'''
-		if self.latch:
+		if self.latch_pin_on:
 			GPIO.output (self.__latch_pin_id, GPIO.LOW)
-			self.__latch = self.OFF
+			self.__latch_value = self.OFF
 
 	def all_pins_off (self):
 		'''
@@ -141,18 +141,18 @@ class ShiftRegister ():
 			Turn the data pin on
 			if it's not already.
 		'''
-		if not self.data:
+		if not self.data_pin_on:
 			GPIO.output (self.__data_pin_id, GPIO.HIGH)
-			self.__data = self.ON
+			self.__data_value = self.ON
 
 	def clock_on (self):
 		'''
 			Turn the clock pin on
 			if it's not already.
 		'''
-		if not self.clock:
+		if not self.clock_pin_on:
 			GPIO.output (self.__clock_pin_id, GPIO.HIGH)
-			self.__clock = self.ON
+			self.__clock_value = self.ON
 			## A rising clock line commits data
 			## so all data is no longer latched:
 			self.__number_unlatched += 1
@@ -162,9 +162,9 @@ class ShiftRegister ():
 			Turn the latch pin on
 			if it's not already.
 		'''
-		if not self.latch:
+		if not self.latch_pin_on:
 			GPIO.output (self.__latch_pin_id, GPIO.HIGH)
-			self.__latch = self.ON
+			self.__latch_value = self.ON
 			## All data is latched again:
 			self.__output = tuple (self.__written)
 			self.__number_unlatched = 0
@@ -181,7 +181,7 @@ class ShiftRegister ():
 		'''
 			Pule the data pin.
 		'''
-		if self.data:
+		if self.data_pin_on:
 			self.data_off ()
 			self.data_on ()
 		else:
@@ -192,7 +192,7 @@ class ShiftRegister ():
 		'''
 			Pule the clock pin.
 		'''
-		if self.clock:
+		if self.clock_pin_on:
 			self.clock_off ()
 			self.clock_on ()
 		else:
@@ -203,7 +203,7 @@ class ShiftRegister ():
 		'''
 			Pule the latch pin.
 		'''
-		if self.latch:
+		if self.latch_pin_on:
 			self.latch_off ()
 			self.latch_on ()
 		else:
