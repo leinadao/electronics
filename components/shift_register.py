@@ -30,6 +30,7 @@ class ShiftRegister ():
 		self.__latch_pin_id = latch_pin_id
 		self.__latched = False
 		self.__output = deque (maxlen = len (self))
+		self.__written = deque (maxlen = len (self))
 		GPIO.setup (self.__data_pin_id, GPIO.OUT)
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
@@ -81,9 +82,16 @@ class ShiftRegister ():
 	@property
 	def output (self):
 		'''
-			Return the current output.
+			Return the currently output data.
 		'''
 		return list (self.__output)
+
+	@property
+	def written (self):
+		'''
+			Return the currently written data.
+		'''
+		return list (self.__written)
 
 	def data_off (self):
 		'''
@@ -201,7 +209,7 @@ class ShiftRegister ():
 		## Make sure data isn't added:
 		self.data_off ()
 		self.clock_pulse ()
-		self.__output.appendleft (self.OFF)
+		self.__written.appendleft (self.OFF)
 		self.latch_pulse ()
 
 	def next (self, on_or_off, latch = False):
@@ -218,14 +226,14 @@ class ShiftRegister ():
 		self.clock_off ()
 		## Commit the data:
 		self.clock_pulse ()
-		self.__output.appendleft (on_or_off)
+		self.__written.appendleft (on_or_off)
 		## Latch if requested:
 		if latch:
 			self.latch_pulse ()
 
 	def all (self, on_or_off, latch = False):
 		'''
-			Set all outputs to the given on
+			Write all data to the given on
 			or off value and latch if requested.
 			Doesn't use next for efficiency.
 		'''
@@ -239,7 +247,7 @@ class ShiftRegister ():
 		## Commit the data:
 		for i in range (len (self)):
 			self.clock_pulse ()
-			self.__output.appendleft (on_or_off)
+			self.__written.appendleft (on_or_off)
 		## Latch if requested:
 		if latch:
 			self.latch_pulse ()
@@ -260,18 +268,18 @@ class ShiftRegister ():
 		reuse_previous = True,
 	):
 		'''
-			Set outputs 1-x to from the given list.
+			Write values for outputs 1-x to from the given list.
 			Data written in reverse so to_set[0] is
 			set on pin 0 etc. Latch the result by default.
-			Try reusing the previous output by default.
+			Try reusing the previously written data by default.
 		'''
 		if reuse_previous:
-			## Check if any of the current
-			## output is of any use:
-			output = list (self.__output)
+			## Check if any of the currently
+			## written data is of any use:
+			written = list (self.__written)
 			len_to_set = len (to_set)
 			for i in range (len_to_set): ## to_set used in case shorter.
-				if output[:len_to_set - i] == to_set[i:]:
+				if written[:len_to_set - i] == to_set[i:]:
 					to_set = to_set[:i]
 		## Reverse the list so order is
 		## maintained once written:
@@ -291,11 +299,11 @@ class ShiftRegister ():
 		reuse_previous = True,
 	):
 		'''
-			Turn on only the output numbers in
-			the given list and all others off.
+			Write on to only the output numbers in
+			the given list and off to all others.
 			Pin numbering starts at 0.
 			Latch the result by default.
-			Try reusing the previous output by default.
+			Try reusing the current data by default.
 		'''
 		data = [
 			self.ON if pin in pin_list else self.OFF for pin in range (len (self))
