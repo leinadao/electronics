@@ -36,7 +36,9 @@ class ShiftRegister ():
 		GPIO.setup (self.__latch_pin_id, GPIO.OUT)
 		## Ensure control is all initially off:
 		self.__data_value = self.__clock_value = self.__latch_value = True
-		self.all_pins_off ()
+		self.data_off ()
+		self.clock_off ()
+		self.latch_off ()
 		## Ensure the output is clear:
 		self.clear ()
 
@@ -128,14 +130,6 @@ class ShiftRegister ():
 			GPIO.output (self.__latch_pin_id, GPIO.LOW)
 			self.__latch_value = self.OFF
 
-	def all_pins_off (self):
-		'''
-			Turn all pins off.
-		'''
-		self.data_off ()
-		self.clock_off ()
-		self.latch_off ()
-
 	def data_on (self):
 		'''
 			Turn the data pin on
@@ -168,14 +162,6 @@ class ShiftRegister ():
 			## All data is latched again:
 			self.__output = self.written
 			self.__number_unlatched = 0
-
-	def all_pins_on (self):
-		'''
-			Turn all pins on.
-		'''
-		self.data_on ()
-		self.clock_on ()
-		self.latch_on ()
 
 	def data (self):
 		'''
