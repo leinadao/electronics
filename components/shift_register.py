@@ -99,7 +99,7 @@ class ShiftRegister ():
 		'''
 			Return the currently written data.
 		'''
-		return list (self.__written)
+		return tuple (self.__written)
 
 	def data_off (self):
 		'''
@@ -166,7 +166,7 @@ class ShiftRegister ():
 			GPIO.output (self.__latch_pin_id, GPIO.HIGH)
 			self.__latch_value = self.ON
 			## All data is latched again:
-			self.__output = tuple (self.__written)
+			self.__output = self.written
 			self.__number_unlatched = 0
 
 	def all_pins_on (self):
