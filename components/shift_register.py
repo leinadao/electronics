@@ -177,7 +177,7 @@ class ShiftRegister ():
 		self.clock_on ()
 		self.latch_on ()
 
-	def data_pulse (self):
+	def data (self):
 		'''
 			Pule the data pin.
 		'''
@@ -188,7 +188,7 @@ class ShiftRegister ():
 			self.data_on ()
 			self.data_off ()
 
-	def clock_pulse (self):
+	def clock (self):
 		'''
 			Pule the clock pin.
 		'''
@@ -199,7 +199,7 @@ class ShiftRegister ():
 			self.clock_on ()
 			self.clock_off ()
 
-	def latch_pulse (self):
+	def latch (self):
 		'''
 			Pule the latch pin.
 		'''
@@ -217,9 +217,9 @@ class ShiftRegister ():
 		'''
 		## Make sure data isn't added:
 		self.data_off ()
-		self.clock_pulse ()
+		self.clock ()
 		self.__written.appendleft (self.OFF)
-		self.latch_pulse ()
+		self.latch ()
 
 	def next (self, on_or_off, latch = False):
 		'''
@@ -234,11 +234,11 @@ class ShiftRegister ():
 		## Ensure clock ready:
 		self.clock_off ()
 		## Commit the data:
-		self.clock_pulse ()
+		self.clock ()
 		self.__written.appendleft (on_or_off)
 		## Latch if requested:
 		if latch:
-			self.latch_pulse ()
+			self.latch ()
 
 	def all (self, on_or_off, latch = False):
 		'''
@@ -255,11 +255,11 @@ class ShiftRegister ():
 		self.clock_off ()
 		## Commit the data:
 		for i in range (len (self)):
-			self.clock_pulse ()
+			self.clock ()
 			self.__written.appendleft (on_or_off)
 		## Latch if requested:
 		if latch:
-			self.latch_pulse ()
+			self.latch ()
 
 	def clear (self):
 		'''
@@ -299,7 +299,7 @@ class ShiftRegister ():
 		## Only latch at the end for
 		## efficiency, if requested:
 		if latch:
-			self.latch_pulse ()
+			self.latch ()
 
 	def from_pin_list (
 		self,
