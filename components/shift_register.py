@@ -285,10 +285,10 @@ class ShiftRegister ():
 		if reuse_previous:
 			## Check if any of the currently
 			## written data is of any use:
-			written = list (self.__written)
+			already_written = list (self.__written)
 			len_to_set = len (to_set)
 			for i in range (len_to_set): ## to_set used in case shorter.
-				if written[:len_to_set - i] == to_set[i:]:
+				if already_written[:len_to_set - i] == to_set[i:]:
 					to_set = to_set[:i]
 		## Reverse the list so order is
 		## maintained once written:
