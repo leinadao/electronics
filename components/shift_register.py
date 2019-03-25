@@ -28,8 +28,8 @@ class ShiftRegister ():
 		self.__data_pin_id = data_pin_id
 		self.__clock_pin_id = clock_pin_id
 		self.__latch_pin_id = latch_pin_id
-		self.__latched = False
 		self.__output = deque (maxlen = len (self))
+		self.__number_unlatched = 0
 		self.__written = deque (maxlen = len (self))
 		GPIO.setup (self.__data_pin_id, GPIO.OUT)
 		GPIO.setup (self.__clock_pin_id, GPIO.OUT)
@@ -77,7 +77,15 @@ class ShiftRegister ():
 			Return a boolean for whether
 			all data written has been latched.
 		'''
-		return self.__latched
+		return not self.__number_unlatched
+
+	@property
+	def number_unlatched (self):
+		'''
+			Return the number of pieces of
+			data written but not yet output.
+		'''
+		return self.__number_unlatched
 
 	@property
 	def output (self):
@@ -147,7 +155,7 @@ class ShiftRegister ():
 			self.__clock = self.ON
 			## A rising clock line commits data
 			## so all data is no longer latched:
-			self.__latched = False
+			self.__number_unlatched += 1
 
 	def latch_on (self):
 		'''
@@ -158,7 +166,7 @@ class ShiftRegister ():
 			GPIO.output (self.__latch_pin_id, GPIO.HIGH)
 			self.__latch = self.ON
 			## All data is latched again:
-			self.__latched = True
+			self.__number_unlatched = 0
 
 	def all_pins_on (self):
 		'''
