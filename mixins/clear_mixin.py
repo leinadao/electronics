@@ -1,4 +1,9 @@
+from RPi import GPIO
+
 from ..exceptions import NoClearControl
+
+## Set the pin mode:
+GPIO.setmode (GPIO.BCM)
 
 class ClearMixin ():
 	'''
