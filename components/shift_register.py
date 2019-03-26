@@ -1,10 +1,12 @@
 from collections import deque
 from RPi import GPIO
 
+from .mixins import OutputEnableMixin
+
 ## Set the pin mode:
 GPIO.setmode (GPIO.BCM)
 
-class ShiftRegister ():
+class ShiftRegister (OutputEnableMixin):
 	'''
 		A class for handling a shift register
 		using only three inputs.
@@ -12,22 +14,16 @@ class ShiftRegister ():
 	ON = 1
 	OFF = 0
 
-	def __init__ (
-		self,
-		number_outputs,
-		data_pin_id,
-		clock_pin_id,
-		latch_pin_id, ## Add handling for the other two possible lines (clear and blank) (make optional). ## Needs to hold them the correct way when not calling etc. Methods only registered if needed -> Subclass? Use clear line for clear but also consider if more efficient for new write. Handle either active low and/or high for both? Use proper pin names somewhere?
-	):
+	def __init__ (self, *args, **kwargs):
 		'''
 			A manager class for running
 			a shift register on three
 			given GPIO pins.
 		'''
-		self.__number_outputs = number_outputs
-		self.__data_pin_id = data_pin_id
-		self.__clock_pin_id = clock_pin_id
-		self.__latch_pin_id = latch_pin_id
+		self.__number_outputs = kwargs.pop ('number_outputs')
+		self.__data_pin_id = kwargs.pop ('data_pin_id')
+		self.__clock_pin_id = kwargs.pop ('clock_pin_id')
+		self.__latch_pin_id = kwargs.pop ('latch_pin_id')
 		self.__number_unlatched = 0
 		self.__written = deque (maxlen = len (self))
 		self.__output = ()
@@ -41,6 +37,7 @@ class ShiftRegister ():
 		self.latch_off ()
 		## Ensure the output is clear:
 		self.clear ()
+		super ().__init__ (*args, **kwargs)
 
 	def __len__ (self):
 		'''
