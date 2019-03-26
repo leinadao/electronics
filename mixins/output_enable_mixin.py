@@ -54,8 +54,6 @@ class OutputEnableMixin ():
 			Turn the enable pin off
 			if it's not already.
 		'''
-		if not self.controlling_enable_pin:
-			raise NoEnableControl
 		if self.enable_pin_on:
 			GPIO.output (self.__enable_pin_id, GPIO.LOW)
 			self.__enable_value = self.OFF
@@ -65,8 +63,6 @@ class OutputEnableMixin ():
 			Turn the enable pin on
 			if it's not already.
 		'''
-		if not self.controlling_enable_pin:
-			raise NoEnableControl
 		if not self.enable_pin_on:
 			GPIO.output (self.__enable_pin_id, GPIO.HIGH)
 			self.__enable_value = self.ON
@@ -76,8 +72,6 @@ class OutputEnableMixin ():
 			Enable output if its
 			not already enabled.
 		'''
-		if not self.controlling_enable_pin:
-			raise NoEnableControl
 		if not self.enabled:
 			if self.enable_active_low:
 				self.enable_off ()
@@ -89,8 +83,6 @@ class OutputEnableMixin ():
 			Disable output if its
 			not already disabled.
 		'''
-		if not self.controlling_enable_pin:
-			raise NoEnableControl
 		if self.enabled:
 			if self.enable_active_low:
 				self.enable_on ()
