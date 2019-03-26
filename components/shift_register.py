@@ -251,10 +251,15 @@ class ShiftRegister (OutputEnableMixin):
 		'''
 			Turn off all outputs.
 		'''
-		self.all (
-			self.OFF,
-			latch = True,
-		)
+		## Use ClearMixin if possible for speed:
+		if self.controlling_clear_pin:
+			super ().clear ()
+			self.latch ()
+		else:
+			self.all (
+				self.OFF,
+				latch = True,
+			)
 
 	def from_list (
 		self,
