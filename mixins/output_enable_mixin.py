@@ -17,7 +17,7 @@ class OutputEnableMixin ():
 		## Ensure output is enabled if enable pin used:
 		if self.controlling_enable_pin:
 			GPIO.setup (self.__enable_pin_id, GPIO.OUT)
-			self.__enable_pin_value = self.OFF if self.enable_active_low else self.ON
+			self.__enable_value = self.OFF if self.enable_active_low else self.ON
 		super ().__init__ (*args, **kwargs)
 
 	@property
