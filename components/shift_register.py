@@ -1,7 +1,10 @@
 from collections import deque
 from RPi import GPIO
 
-from .mixins import OutputEnableMixin
+from .mixins import (
+	ClearMixin,
+	OutputEnableMixin,
+)
 
 ## Set the pin mode:
 GPIO.setmode (GPIO.BCM)
