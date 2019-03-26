@@ -49,8 +49,6 @@ class ClearMixin ():
 			Turn the enable pin off
 			if it's not already.
 		'''
-		if not self.controlling_clear_pin:
-			raise NoClearControl
 		if self.clear_pin_on:
 			GPIO.output (self.__clear_pin_id, GPIO.LOW)
 			self.__clear_value = self.OFF
@@ -60,8 +58,6 @@ class ClearMixin ():
 			Turn the enable pin on
 			if it's not already.
 		'''
-		if not self.controlling_clear_pin:
-			raise NoClearControl
 		if not self.clear_pin_on:
 			GPIO.output (self.__clear_pin_id, GPIO.HIGH)
 			self.__clear_value = self.ON
@@ -79,8 +75,6 @@ class ClearMixin ():
 		'''
 			Pulse the clear pin.
 		'''
-		if not self.controlling_clear_pin:
-			raise NoClearControl
 		if self.clear_active_low:
 			self.clear_off ()
 			self.clear_on ()
