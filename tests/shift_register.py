@@ -27,6 +27,17 @@ def flash_random (shift_register, iterations, pause_seconds):
 		)
 		time_sleep (pause_seconds)
 
+def iterate_pins (shift_register, pin_list, pause_seconds = 0.5):
+	'''
+		Iterate through the given pin
+		numbers with the given interval
+		(defaults toe every half second).
+	'''
+	for pin in pin_list:
+		shift_register.from_pin_list ([pin])
+		time.sleep (pause_seconds)
+	shift_register.clear ()
+
 def test_average_time (shift_register, iterations, clear = False):
 	'''
 		Test the speed of the furthest possible write,
