@@ -1,7 +1,7 @@
 from collections import deque
 from RPi import GPIO
 
-from .mixins import (
+from ..mixins import (
 	ClearMixin,
 	OutputEnableMixin,
 )
