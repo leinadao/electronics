@@ -9,7 +9,10 @@ from ..mixins import (
 ## Set the pin mode:
 GPIO.setmode (GPIO.BCM)
 
-class ShiftRegister (OutputEnableMixin):
+class ShiftRegister (
+	ClearMixin,
+	OutputEnableMixin,
+):
 	'''
 		A class for handling a shift register
 		using only three inputs.
