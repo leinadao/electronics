@@ -18,11 +18,11 @@ class ClearMixin ():
 		'''
 			Set up clear control.
 		'''
-		self.__clear_pin_id = kwargs.pop ('clear_pin_id', None)
+		self._clear_pin_id = kwargs.pop ('clear_pin_id', None)
 		## Ensure clear is disabled if clear pin used:
 		if self.controlling_clear_pin:
-			GPIO.setup (self.__clear_pin_id, GPIO.OUT)
-			self.__clear_value = self.OFF if self.clear_active_low else self.ON
+			GPIO.setup (self._clear_pin_id, GPIO.OUT)
+			self._clear_value = self.OFF if self.clear_active_low else self.ON
 			self.no_clear ()
 		super ().__init__ (*args, **kwargs)
 
@@ -32,7 +32,7 @@ class ClearMixin ():
 			Return a boolean for whether
 			the clear pin is controlled.
 		'''
-		return bool (self.__clear_pin_id)
+		return bool (self._clear_pin_id)
 
 	@property
 	def clear_pin_on (self):
@@ -42,7 +42,7 @@ class ClearMixin ():
 		'''
 		if not self.controlling_clear_pin:
 			raise NoClearControl
-		return self.__clear_value == self.ON
+		return self._clear_value == self.ON
 
 	def clear_off (self):
 		'''
@@ -50,8 +50,8 @@ class ClearMixin ():
 			if it's not already.
 		'''
 		if self.clear_pin_on:
-			GPIO.output (self.__clear_pin_id, GPIO.LOW)
-			self.__clear_value = self.OFF
+			GPIO.output (self._clear_pin_id, GPIO.LOW)
+			self._clear_value = self.OFF
 
 	def clear_on (self):
 		'''
@@ -59,8 +59,8 @@ class ClearMixin ():
 			if it's not already.
 		'''
 		if not self.clear_pin_on:
-			GPIO.output (self.__clear_pin_id, GPIO.HIGH)
-			self.__clear_value = self.ON
+			GPIO.output (self._clear_pin_id, GPIO.HIGH)
+			self._clear_value = self.ON
 
 	def no_clear (self):
 		'''

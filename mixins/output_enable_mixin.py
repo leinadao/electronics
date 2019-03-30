@@ -18,11 +18,11 @@ class OutputEnableMixin ():
 		'''
 			Set up output enable control.
 		'''
-		self.__enable_pin_id = kwargs.pop ('enable_pin_id', None)
+		self._enable_pin_id = kwargs.pop ('enable_pin_id', None)
 		## Ensure output is enabled if enable pin used:
 		if self.controlling_enable_pin:
-			GPIO.setup (self.__enable_pin_id, GPIO.OUT)
-			self.__enable_value = self.ON if self.enable_active_low else self.OFF
+			GPIO.setup (self._enable_pin_id, GPIO.OUT)
+			self._enable_value = self.ON if self.enable_active_low else self.OFF
 			self.enable ()
 		super ().__init__ (*args, **kwargs)
 
@@ -32,7 +32,7 @@ class OutputEnableMixin ():
 			Return a boolean for whether
 			the output enable pin is controlled.
 		'''
-		return bool (self.__enable_pin_id)
+		return bool (self._enable_pin_id)
 
 	@property
 	def enable_pin_on (self):
@@ -42,7 +42,7 @@ class OutputEnableMixin ():
 		'''
 		if not self.controlling_enable_pin:
 			raise NoEnableControl
-		return self.__enable_value == self.ON
+		return self._enable_value == self.ON
 
 	@property
 	def enabled (self):
@@ -60,8 +60,8 @@ class OutputEnableMixin ():
 			if it's not already.
 		'''
 		if self.enable_pin_on:
-			GPIO.output (self.__enable_pin_id, GPIO.LOW)
-			self.__enable_value = self.OFF
+			GPIO.output (self._enable_pin_id, GPIO.LOW)
+			self._enable_value = self.OFF
 
 	def enable_on (self):
 		'''
@@ -69,8 +69,8 @@ class OutputEnableMixin ():
 			if it's not already.
 		'''
 		if not self.enable_pin_on:
-			GPIO.output (self.__enable_pin_id, GPIO.HIGH)
-			self.__enable_value = self.ON
+			GPIO.output (self._enable_pin_id, GPIO.HIGH)
+			self._enable_value = self.ON
 
 	def enable (self):
 		'''
