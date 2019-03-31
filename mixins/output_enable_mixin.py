@@ -24,7 +24,7 @@ class OutputEnableMixin ():
 			GPIO.setup (self._enable_pin_id, GPIO.OUT)
 			self._enable_value = self.ON if self.enable_active_low else self.OFF
 			self.enable ()
-		super ().__init__ (*args, **kwargs)
+		super ().__init__ (**kwargs)
 
 	@property
 	def controlling_enable_pin (self):

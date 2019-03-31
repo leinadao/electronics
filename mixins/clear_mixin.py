@@ -24,7 +24,7 @@ class ClearMixin ():
 			GPIO.setup (self._clear_pin_id, GPIO.OUT)
 			self._clear_value = self.OFF if self.clear_active_low else self.ON
 			self.no_clear ()
-		super ().__init__ (*args, **kwargs)
+		super ().__init__ (*kwargs)
 
 	@property
 	def controlling_clear_pin (self):
