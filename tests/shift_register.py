@@ -35,7 +35,7 @@ def iterate_pins (shift_register, pin_list, pause_seconds = 0.5):
 	'''
 	for pin in pin_list:
 		shift_register.from_pin_list ([pin])
-		time.sleep (pause_seconds)
+		time_sleep (pause_seconds)
 	shift_register.clear ()
 
 def test_average_time (shift_register, iterations, clear = False):
