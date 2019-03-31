@@ -26,6 +26,7 @@ class ShiftRegister (
 			a shift register on three
 			given GPIO pins.
 		'''
+		super ().__init__ (*args, **kwargs)
 		self.__number_outputs = kwargs.pop ('number_outputs')
 		self.__data_pin_id = kwargs.pop ('data_pin_id')
 		self.__clock_pin_id = kwargs.pop ('clock_pin_id')
@@ -43,7 +44,6 @@ class ShiftRegister (
 		self.latch_off ()
 		## Ensure the output is clear:
 		self.clear ()
-		super ().__init__ (*args, **kwargs)
 
 	def __len__ (self):
 		'''
