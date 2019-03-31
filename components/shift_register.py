@@ -20,7 +20,7 @@ class ShiftRegister (
 	ON = 1
 	OFF = 0
 
-	def __init__ (self, *args, **kwargs):
+	def __init__ (self, **kwargs):
 		'''
 			A manager class for running
 			a shift register on three

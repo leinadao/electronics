@@ -14,7 +14,7 @@ class OutputEnableMixin ():
 	OFF = 0
 	enable_active_low = True
 
-	def __init__ (self, *args, **kwargs):
+	def __init__ (self, **kwargs):
 		'''
 			Set up output enable control.
 		'''
